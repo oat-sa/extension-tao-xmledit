@@ -1,6 +1,6 @@
 {
 
-    "name": "oat/xmlEdit",
+    "name": "oat/extension-tao-xmledit",
     "description" : "xml editing tools and debugger",
     "type" : "tao-extension",
     "authors" : [
