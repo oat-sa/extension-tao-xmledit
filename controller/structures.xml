@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE structures SYSTEM "../doc/structures.dtd">
+<structures>
+	<structure id="xmlEdit_main" name="xmlEdit" level="15" group="main">
+		<description />
+		<sections>
+			<section id="xmlEdit_main" name="xmlEdit" url="/xmlEdit/XmlEdit/index" />
+			<section id="xmlEdit_other" name="Template" url="/xmlEdit/XmlEdit/templateExample" />
+		</sections>
+	</structure>
+</structures>
