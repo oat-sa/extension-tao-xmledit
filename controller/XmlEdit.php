@@ -42,11 +42,7 @@ class XmlEdit extends \tao_actions_CommonModule {
      * A possible entry point to tao
      */
     public function index() {
-        echo __("Hello World");
+        
     }
 
-    public function templateExample() {
-        $this->setData('author', 'Open Assessment Technologies SA');
-        $this->setView('XmlEdit/templateExample.tpl');
-    }
 }
