@@ -45,7 +45,9 @@
  *
  */
 define(function(){
-
+    
+    'use strict';
+    
     function createShiftArr(step){
 
         var space = ' ';

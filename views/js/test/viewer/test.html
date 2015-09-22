@@ -13,21 +13,17 @@
         <script type="text/javascript" src="js/lib/blanket/blanket.min.js" data-cover-flag="branchTracking"  data-cover-only="viewer.js"></script>
         
         <style type="text/css">
-            #editor{
+            .viewer{
                 position: absolute;
-                top : 250px;
-                left : 20px;
-                width : 800px;
-                height : 500px;
             }
-            .ace_editor.viewer { 
+            .ace_editor.tao-ace-editor { 
                 position: absolute;
                 top: 0;
                 right: 0;
                 bottom: 0;
                 left: 0;
             }
-            .ace_editor.viewer .ace_layer div{
+            .ace_editor.tao-ace-editor .ace_layer div{
                 white-space:pre;
             }
         </style>
@@ -46,8 +42,6 @@
     <body>
         <div id="qunit"></div>
         <div id="qunit-fixture"></div>
-        <div id="editor">
-            <div class="viewer"></div>
-        </div>
+        <div id="editor"></div>
     </body>
 </html>
