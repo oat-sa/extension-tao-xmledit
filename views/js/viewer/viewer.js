@@ -23,6 +23,7 @@ define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $,
     'use strict';
 
     var _defaults = {
+        readonly : false,
         top : 0,
         left : 0,
         width : '800px',
@@ -38,7 +39,16 @@ define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $,
     function formatXml(xml){
         return vkBeautify.xml(xml, '\t');
     }
-
+    
+    /**
+     * Compress the xml string into a single line
+     * @private
+     * @param {string} xml
+     * @returns {string}
+     */
+    function compressXml(xml){
+        return xml.replace(/[ \r\n\t]{1,}xmlns/g, ' xmlns').replace(/>\s{0,}</g,"><"); 
+    }
     /**
      * Init the previewer on a container and returns an api to control it
      * 
@@ -55,11 +65,11 @@ define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $,
         
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/xml");
-        editor.setReadOnly(true);
+        editor.setReadOnly(options.readonly);
         editor.setShowPrintMargin(false);
-        editor.on('input', function(){
-            $container.trigger('change.xml-editor', [editor.getValue()]);
-        });
+        editor.on('input', _.throttle(function(){
+            $container.trigger('change.xml-editor', [getValue()]);
+        }, 600));
 
         //set editor style options
         $container
@@ -75,13 +85,23 @@ define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $,
          * Set the editor content
          * @param {string} xml
          */
-        function setContent(xml){
+        function setValue(xml){
             xml = formatXml(xml);
             editor.getSession().setValue(xml);
         }
-
+        
+        /**
+         * Get the editor content
+         *  
+         * @returns {string}
+         */
+        function getValue(){
+            return compressXml(editor.getValue());
+        }
+        
         return {
-            setContent : setContent
+            setValue : setValue,
+            getValue : getValue
         };
     }
 
