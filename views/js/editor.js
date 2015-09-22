@@ -54,6 +54,7 @@ define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $,
      * 
      * @param {jQuery} $container
      * @param {object} options
+     * @fires change.xml-editor
      * @returns {object}
      */
     function init($container, options){
@@ -61,7 +62,7 @@ define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $,
         var $editor = $('<div>', {'class' : 'tao-ace-editor'}).appendTo($container);
         var editor = ace.edit($editor[0]);
 
-        options = _.defaults(options, _defaults);
+        options = _.defaults(options || {}, _defaults);
         
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/xml");

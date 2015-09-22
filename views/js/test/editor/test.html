@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>XML viewer test</title>
+        <title>XML editor test</title>
         <base href="../../../../../../tao/views/" />
 
         <link rel="stylesheet" type="text/css" href="js/lib/qunit/qunit.css">
@@ -32,7 +32,7 @@
 
             QUnit.config.autostart = false;
             require(['/tao/ClientConfig/config'], function(){
-                require(['xmlEdit/test/viewer/test'], function(){
+                require(['xmlEdit/test/editor/test'], function(){
                     QUnit.config.reorder = false;
                     QUnit.start();
                 });
