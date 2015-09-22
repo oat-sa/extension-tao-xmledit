@@ -16,12 +16,11 @@
  * Copyright (c) 2015 (original work) Open Assessment Technologies SA ;
  *
  */
-//require.config({paths : {ace : "//cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/"}});
-require.config({paths : {ace : "../../../xmlEdit/views/js/lib/ace-builds-1.2.0/src-min/"}});
+require.config({paths : {ace : "../../../xmlEdit/views/js/lib/ace-1.2.0/"}});
 define([
-    'lodash', 
-    'jquery', 
-    'ace/ace', 
+    'lodash',
+    'jquery',
+    'ace/ace',
     'xmlEdit/lib/vkBeautify',
     'css!xmlEditCss/editor'
 ], function(_, $, ace, vkBeautify){
@@ -106,9 +105,23 @@ define([
             return compressXml(editor.getValue());
         }
         
+        /**
+         * Destroy the editor
+         */
+        function destroy(){
+            
+            editor.destroy();
+            $container
+                .off('xml-editor')
+                .removeClass('tao-xml-editor')
+                .removeAttr('style')
+                .children('.tao-ace-editor').remove();
+        }
+        
         return {
             setValue : setValue,
-            getValue : getValue
+            getValue : getValue,
+            destroy : destroy
         };
     }
 
