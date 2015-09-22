@@ -42,7 +42,8 @@
  * vkbeautify.jsonmin(text);// minify JSON
  * vkbeautify.cssmin(text);// minify CSS, remove comments ( default )
  * vkbeautify.sqlmin(text);// minify SQL
- *
+ * 
+ * changes (AMDify, use strict) by Sam <sam@taotesting.com> for OAT S.A.
  */
 define(function(){
     
