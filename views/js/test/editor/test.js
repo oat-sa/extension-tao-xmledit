@@ -20,6 +20,8 @@ define([
         assert.ok(_.isFunction(editor.setValue), 'has setValue() fonction');
         assert.ok(_.isFunction(editor.getValue), 'has getValue() fonction');
         assert.ok(_.isFunction(editor.destroy), 'has destroy() fonction');
+        assert.ok(_.isFunction(editor.show), 'has show() fonction');
+        assert.ok(_.isFunction(editor.hide), 'has hide() fonction');
     });
 
     QUnit.asyncTest('get/setValue', 4, function(assert){

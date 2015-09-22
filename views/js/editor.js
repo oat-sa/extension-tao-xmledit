@@ -25,9 +25,12 @@ define([
 ], function(_, $, ace, vkBeautify){
 
     'use strict';
-
+    
+    var _ns = '.xml-editor';
+    
     var _defaults = {
         readonly : false,
+        hidden :false,
         top : 0,
         left : 0,
         width : '800px',
@@ -73,7 +76,7 @@ define([
         editor.setReadOnly(options.readonly);
         editor.setShowPrintMargin(false);
         editor.on('input', _.throttle(function(){
-            $container.trigger('change.xml-editor', [getValue()]);
+            $container.trigger('change'+_ns, [getValue()]);
         }, 600));
 
         //set editor style options
@@ -85,7 +88,11 @@ define([
                 width : options.width,
                 height : options.height
             });
-
+        
+        if(options.hidden){
+            $container.hide();
+        }
+        
         /**
          * Set the editor content
          * @param {string} xml
@@ -111,7 +118,7 @@ define([
             
             editor.destroy();
             $container
-                .off('xml-editor')
+                .off(_ns)
                 .removeClass('tao-xml-editor')
                 .removeAttr('style')
                 .children('.tao-ace-editor').remove();
@@ -120,7 +127,13 @@ define([
         return {
             setValue : setValue,
             getValue : getValue,
-            destroy : destroy
+            destroy : destroy,
+            show : function show(){
+                $container.show().trigger('show'+_ns);
+            },
+            hide : function hide(){
+                $container.hide().trigger('hide'+_ns);
+            }
         };
     }
 
