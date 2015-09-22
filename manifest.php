@@ -15,7 +15,6 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  * 
  * Copyright (c) 2015 (original work) Open Assessment Technologies SA;
- *               
  * 
  */               
 
@@ -24,7 +23,7 @@ return array(
 	'label' => 'xmlEdit',
 	'description' => 'xml editing and debugging tools',
     'license' => 'GPL-2.0',
-    'version' => '0.1',
+    'version' => '0.2',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'tao' => '>=2.12.0',
@@ -33,8 +32,14 @@ return array(
     'acl' => array(
         array('grant', 'http://www.tao.lu/Ontologies/generis.rdf#xmlEditManager', array('ext'=>'xmlEdit')),
     ),
+    'install' => array(
+        'php' => array(
+			dirname(__FILE__).'/scripts/install/setAceAlias.php',
+		)
+    ),
     'uninstall' => array(
     ),
+    'update' => 'oat\\xmlEdit\\scripts\\update\\Updater',
     'routes' => array(
         '/xmlEdit' => 'oat\\xmlEdit\\controller'
     ),    

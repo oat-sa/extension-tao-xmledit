@@ -16,7 +16,6 @@
  * Copyright (c) 2015 (original work) Open Assessment Technologies SA ;
  *
  */
-require.config({paths : {ace : "../../../xmlEdit/views/js/lib/ace-1.2.0/"}});
 define([
     'lodash',
     'jquery',
