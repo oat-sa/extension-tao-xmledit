@@ -18,7 +18,13 @@
  */
 //require.config({paths : {ace : "//cdnjs.cloudflare.com/ajax/libs/ace/1.2.0/"}});
 require.config({paths : {ace : "../../../xmlEdit/views/js/lib/ace-builds-1.2.0/src-min/"}});
-define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $, ace, vkBeautify){
+define([
+    'lodash', 
+    'jquery', 
+    'ace/ace', 
+    'xmlEdit/lib/vkBeautify',
+    'css!xmlEditCss/editor'
+], function(_, $, ace, vkBeautify){
 
     'use strict';
 
@@ -74,7 +80,7 @@ define(['lodash', 'jquery', 'ace/ace', 'xmlEdit/lib/vkBeautify'], function(_, $,
 
         //set editor style options
         $container
-            .addClass('viewer')
+            .addClass('tao-xml-editor')
             .css({
                 top : options.top,
                 left : options.left,

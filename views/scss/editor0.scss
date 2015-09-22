@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+@import "inc/bootstrap";
+
+.tao-xml-editor {
+    position: absolute;
+    .ace_editor.tao-ace-editor { 
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+    .ace_editor.tao-ace-editor .ace_layer div{
+        white-space:pre;
+    }
+}
