@@ -34,7 +34,8 @@ define([
         top : 0,
         left : 0,
         width : '800px',
-        height : '500px'
+        height : '500px',
+        zIndex : 1
     };
 
     /**
@@ -71,6 +72,7 @@ define([
 
         options = _.defaults(options || {}, _defaults);
         
+//        editor.$blockScrolling = Infinity;
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/xml");
         editor.setReadOnly(options.readonly);
@@ -86,7 +88,8 @@ define([
                 top : options.top,
                 left : options.left,
                 width : options.width,
-                height : options.height
+                height : options.height,
+                zIndex : options.zIndex
             });
         
         if(options.hidden){
@@ -130,6 +133,7 @@ define([
             destroy : destroy,
             show : function show(){
                 $container.show().trigger('show'+_ns);
+                setValue(getValue());//ensure that the rendering is updated
             },
             hide : function hide(){
                 $container.hide().trigger('hide'+_ns);

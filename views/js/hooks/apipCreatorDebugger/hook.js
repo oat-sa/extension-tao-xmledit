@@ -16,11 +16,11 @@
  * Copyright (c) 2015 (original work) Open Assessment Technologies SA ;
  *
  */
-define(['jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebugger/trigger'], function($, xmlEditor, buttonTpl){
+define(['lodash', 'jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebugger/trigger'], function(_, $, xmlEditor, buttonTpl){
     
     'use strict';
     
-    function init(config){
+    function init(apipCreator){
         
         var $apipCreatorScope = $('#apip-creator-scope');
         var $editor = $('<div>').appendTo($apipCreatorScope.find('#item-editor-scroll-outer'));
@@ -28,7 +28,9 @@ define(['jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebugger/trigg
             hidden : true,
             top : 34,
             width : '100%',
-            height : 900
+            height : 900,
+            zIndex : 301,
+            readonly : true
         });
         var $button = $(buttonTpl());
         
@@ -42,6 +44,17 @@ define(['jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebugger/trigg
                 editor.show();
             }
         });
+        
+        var updateValue = _.throttle(function updateValue(){
+            console.log('change');
+            var xml = apipCreator.apipItem.toXML();
+            editor.setValue(xml);
+        }, 600);
+        //init debugger content
+        _.defer(updateValue);
+        
+        //update debugger content on change
+        apipCreator.$container.on('change.apip-form destroy.apip-form formready.form-builder', updateValue);
     }
     
     return {
