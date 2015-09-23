@@ -19,6 +19,8 @@
  */
 namespace oat\taoMp\scripts\update;
 use oat\tao\model\ClientLibRegistry;
+use oat\tao\model\ClientLibConfigRegistry;
+
 /**
  * 
  * @author Sam <sam@taotesting.com>
@@ -39,7 +41,10 @@ class Updater extends common_ext_ExtensionUpdater
         if ($currentVersion === '0.1') {
 
             ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.2.0/');
-
+            ClientLibConfigRegistry::getRegistry()->register('taoQtiItem/controller/apip-creator/main', array('hooks' => array(
+                'xmlEdit/hooks/apipCreatorDebugger/hook'
+            )));
+            
             $currentVersion = '0.2';
             
         } 
