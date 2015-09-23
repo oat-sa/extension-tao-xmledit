@@ -35,6 +35,7 @@ return array(
     'install' => array(
         'php' => array(
 			dirname(__FILE__).'/scripts/install/setAceAlias.php',
+			dirname(__FILE__).'/scripts/install/addApipDebuggerHook.php',
 		)
     ),
     'uninstall' => array(

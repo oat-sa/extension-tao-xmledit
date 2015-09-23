@@ -72,7 +72,7 @@ define([
 
         options = _.defaults(options || {}, _defaults);
         
-        editor.$blockScrolling = Infinity;
+        editor.$blockScrolling = Infinity;//add this fix as suggested by ace to prevent message in console
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/xml");
         editor.setReadOnly(options.readonly);
