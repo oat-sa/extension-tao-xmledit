@@ -72,7 +72,7 @@ define([
 
         options = _.defaults(options || {}, _defaults);
         
-//        editor.$blockScrolling = Infinity;
+        editor.$blockScrolling = Infinity;
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/xml");
         editor.setReadOnly(options.readonly);
