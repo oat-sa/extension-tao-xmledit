@@ -20,20 +20,27 @@ define(['lodash', 'jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebu
     
     'use strict';
     
+    /**
+     * init the apip creator debugger hook
+     * 
+     * @param {object} apipCreator - the apipCreator object
+     */
     function init(apipCreator){
         
         var $apipCreatorScope = $('#apip-creator-scope');
+        //create the editor container and add it to the dom
         var $editor = $('<div>').appendTo($apipCreatorScope.find('#item-editor-scroll-outer'));
         var editor = xmlEditor.init($editor, {
             hidden : true,
-            top : 34,
+            top : 35,
             width : '100%',
             height : 900,
             zIndex : 301,
             readonly : true
         });
-        var $button = $(buttonTpl());
         
+        //add button and click events
+        var $button = $(buttonTpl());
         $apipCreatorScope.find('.item-editor-menu').append($button);
         $button.on('click', function(){
             if($button.hasClass('active')){
@@ -45,10 +52,12 @@ define(['lodash', 'jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebu
             }
         });
         
+        //define editor content update
         var updateValue = _.throttle(function updateValue(){
             var xml = apipCreator.apipItem.toXML();
             editor.setValue(xml);
         }, 600);
+        
         //init debugger content
         _.defer(updateValue);
         

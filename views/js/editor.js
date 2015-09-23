@@ -62,6 +62,13 @@ define([
      * 
      * @param {jQuery} $container
      * @param {object} options
+     * @param {boolean} [options.readonly] - not editable
+     * @param {boolean} [options.hidden] - initially hidden or not
+     * @param {number|string} [options.top] - position top absolute to the parent
+     * @param {number|string} [options.left] - position left absolute to the parent
+     * @param {number|string} [options.width] - width of the editor
+     * @param {number|string} [options.height] - height of the editor
+     * @param {number} [options.zIndex] - z-index of the editor
      * @fires change.xml-editor
      * @returns {object}
      */
