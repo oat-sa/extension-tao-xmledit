@@ -16,6 +16,11 @@
 
             QUnit.config.autostart = false;
             require(['/tao/ClientConfig/config'], function(){
+                require.config({
+                   paths : {
+                        'ace':   '../../../xmlEdit/views/js/lib/ace-1.2.0'
+                    }
+                });
                 require(['xmlEdit/test/editor/test'], function(){
                     QUnit.config.reorder = false;
                     QUnit.start();
