@@ -19,10 +19,10 @@
 define([
     'lodash',
     'jquery',
-    'ace/ace',
     'xmlEdit/lib/vkBeautify',
+    'ace/ace',
     'css!xmlEditCss/editor'
-], function(_, $, ace, vkBeautify){
+], function(_, $, vkBeautify){
 
     'use strict';
     
