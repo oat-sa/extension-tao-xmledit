@@ -46,7 +46,6 @@ define(['lodash', 'jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebu
         });
         
         var updateValue = _.throttle(function updateValue(){
-            console.log('change');
             var xml = apipCreator.apipItem.toXML();
             editor.setValue(xml);
         }, 600);
