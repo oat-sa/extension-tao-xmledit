@@ -17,7 +17,8 @@
  * Copyright (c) 2015 (original work) Open Assessment Technologies SA;
  *
  */
-namespace oat\taoMp\scripts\update;
+namespace oat\xmlEdit\scripts\update;
+use \common_ext_ExtensionUpdater;
 use oat\tao\model\ClientLibRegistry;
 use oat\tao\model\ClientLibConfigRegistry;
 
