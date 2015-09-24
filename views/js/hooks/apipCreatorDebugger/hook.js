@@ -29,10 +29,10 @@ define(['lodash', 'jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebu
         
         var $apipCreatorScope = $('#apip-creator-scope');
         //create the editor container and add it to the dom
-        var $editor = $('<div>').appendTo($apipCreatorScope.find('#item-editor-scroll-outer'));
+        var $editor = $('<div>').appendTo($apipCreatorScope);
         var editor = xmlEditor.init($editor, {
             hidden : true,
-            top : 36,
+            top : 101,
             width : '100%',
             height : 960,
             zIndex : 301,
