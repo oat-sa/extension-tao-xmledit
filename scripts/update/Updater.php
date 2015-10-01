@@ -45,6 +45,9 @@ class Updater extends common_ext_ExtensionUpdater
             ClientLibConfigRegistry::getRegistry()->register('taoQtiItem/controller/apip-creator/main', array('hooks' => array(
                 'xmlEdit/hooks/apipCreatorDebugger/hook'
             )));
+            ClientLibConfigRegistry::getRegistry()->register('taoQtiItem/controller/creator/main', array('hooks' => array(
+                'xmlEdit/hooks/qtiCreatorDebugger/hook'
+            )));
             
             $currentVersion = '0.2';
             

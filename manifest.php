@@ -27,6 +27,7 @@ return array(
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'tao' => '>=2.12.0',
+        'taoQtiItem' => '>=2.11.0',
     ),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#xmlEditManager',
     'acl' => array(
@@ -35,6 +36,7 @@ return array(
     'install' => array(
         'php' => array(
 			dirname(__FILE__).'/scripts/install/setAceAlias.php',
+			dirname(__FILE__).'/scripts/install/addQtiDebuggerHook.php',
 			dirname(__FILE__).'/scripts/install/addApipDebuggerHook.php',
 		)
     ),
