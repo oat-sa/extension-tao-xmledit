@@ -49,7 +49,7 @@ class Updater extends common_ext_ExtensionUpdater
                 'xmlEdit/hooks/qtiCreatorDebugger/hook'
             )));
             
-            $currentVersion = '0.2';
+            $currentVersion = '0.2.0';
             
         } 
 

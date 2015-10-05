@@ -28,6 +28,10 @@ define([
     
     var _ns = '.qtiCreatorDebugger';
     
+    /**
+     * The list of events to listen to know when the item has been modified
+     * @type object
+     */
     var eventList = _.map([
         'containerBodyChange',
         'containerElementAdded',
@@ -112,6 +116,9 @@ define([
         
     }
     
+    /**
+     * The format required by the hook, please do not rename the returned function init.
+     */
     return {
         init : init
     };

@@ -65,6 +65,9 @@ define(['lodash', 'jquery', 'xmlEdit/editor', 'tpl!xmlEdit/hooks/apipCreatorDebu
         apipCreator.$container.on('change.apip-form destroy.apip-form formready.form-builder', updateValue);
     }
     
+    /**
+     * The format required by the hook, please do not rename the returned function
+     */
     return {
         init : init
     };
