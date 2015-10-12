@@ -32,27 +32,10 @@ define([
      * The list of events to listen to know when the item has been modified
      * @type object
      */
-    var eventList = _.map([
-        'containerBodyChange',
-        'containerElementAdded',
-        'elementCreated.qti-widget',
-        'attributeChange.qti-widget',
-        'choiceCreated.qti-widget',
-        'correctResponseChange.qti-widget',
-        'mapEntryChange.qti-widget',
-        'mapEntryRemove.qti-widget',
-        'deleted.qti-widget',
-        'choiceTextChange.qti-widget',
-        'responseTemplateChange.qti-widget',
-        'mappingAttributeChange.qti-widget',
-        'feedbackRuleConditionChange.qti-widget',
-        'feedbackRuleCreated.qti-widget',
-        'feedbackRuleRemoved.qti-widget',
-        'feedbackRuleElseCreated.qti-widget',
-        'feedbackRuleElseRemoved.qti-widget'
-    ], function(event){
-        return event + _ns;
-    });
+    var eventList = [
+        'keyup',
+        'click'
+    ];
     
     
     function itemWidgetLoaded(config, callback) {
@@ -105,13 +88,13 @@ define([
             var updateValue = _.throttle(function updateValue(){
                 var xml = xmlRenderer.render(itemWidget.element);
                 editor.setValue(xml);
-            }, 100);
+            }, 600);
 
             //init debugger content
             _.defer(updateValue);
 
             //update debugger content on change
-            $(document).off(_ns).on(eventList.join(' '), updateValue);
+            $creatorScope.off(_ns).on(eventList.join(' '), updateValue);
         });
         
     }
