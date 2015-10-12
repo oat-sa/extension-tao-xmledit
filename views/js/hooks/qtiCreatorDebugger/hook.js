@@ -94,7 +94,7 @@ define([
             _.defer(updateValue);
 
             //update debugger content on change
-            $creatorScope.off(_ns).on(eventList.join(' '), updateValue);
+            $creatorScope.off(_ns).on('click'+_ns+' '+'keyup'+_ns, updateValue);
         });
         
     }
