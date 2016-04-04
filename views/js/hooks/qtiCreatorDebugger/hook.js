@@ -69,6 +69,7 @@ define([
                     $button.removeClass('active');
                     editor.hide();
                 }else{
+                    updateValue();
                     $button.addClass('active');
                     editor.show();
                 }
@@ -82,9 +83,6 @@ define([
 
             //init debugger content
             _.defer(updateValue);
-
-            //update debugger content on change
-            $creatorScope.off(_ns).on('click'+_ns+' '+'keyup'+_ns, updateValue);
         });
         
     }
