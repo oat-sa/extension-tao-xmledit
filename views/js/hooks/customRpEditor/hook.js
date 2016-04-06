@@ -28,16 +28,13 @@ define([
     
     var _ns = '.customRpEditor';
     
-    function responseFormLoaded(config, callback) {
-        
+    function customResponseFormLoaded(config, callback) {
         $('#item-editor-scope').on('initResponseForm'+_ns, function(){
-            
-            var $editor = config.dom.getEditorScope();
-            var itemWidget = $editor.data('widget');
-            
-            callback(itemWidget);
+            var item = config.dom.getEditorScope().data('item');
+            if(item.responseProcessing.processingType === 'custom'){
+                callback(item);
+            }
         });
-        
     }
     
     /**
@@ -46,22 +43,24 @@ define([
      */
     function init(config){
         
-        responseFormLoaded(config, function(itemWidget){
+        customResponseFormLoaded(config, function(item){
             
-            var $creatorScope = $('#item-editor-scope');
+            var $creatorScope = config.dom.getEditorScope();
+            
             //create the editor container and add it to the dom
             var $editor = $('<div>').appendTo($creatorScope);
             var editor = xmlEditor.init($editor, {
                 hidden : true,
                 top : 101,
-                width : '100%',
-                height : 960,
+                width : '60%',
+                height : 460,
                 zIndex : 301,
-                readonly : true
+                readonly : false
             });
             
             //add button and click events
             var $button = $(buttonTpl());
+            
             $creatorScope.find('#item-editor-response-property-bar').find('select[name=template]').parent('.panel').after($button);
             
             $button.on('click', function(){
@@ -77,7 +76,7 @@ define([
 
             //define editor content update
             var updateValue = _.throttle(function updateValue(){
-                var xml = xmlRenderer.render(itemWidget.element);
+                var xml = xmlRenderer.render(item.responseProcessing);
                 editor.setValue(xml);
             }, 600);
 
