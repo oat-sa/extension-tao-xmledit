@@ -85,7 +85,8 @@ define([
         editor.setReadOnly(options.readonly);
         editor.setShowPrintMargin(false);
         editor.on('input', _.throttle(function(){
-            $container.trigger('change'+_ns, [getValue()]);
+            var annotations = editor.getSession().getAnnotations();
+            $container.trigger('change'+_ns, [getValue(), annotations]);
         }, 600));
 
         //set editor style options
