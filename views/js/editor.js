@@ -82,7 +82,7 @@ define([
         editor.$blockScrolling = Infinity;//add this fix as suggested by ace to prevent message in console
         editor.setTheme("ace/theme/monokai");
         editor.getSession().setMode("ace/mode/xml");
-//        editor.setReadOnly(options.readonly);
+        editor.setReadOnly(options.readonly);
         editor.setShowPrintMargin(false);
         editor.on('input', _.throttle(function(){
             $container.trigger('change'+_ns, [getValue()]);
@@ -108,7 +108,6 @@ define([
          * @param {string} xml
          */
         function setValue(xml){
-            console.log('set val');
             xml = formatXml(xml);
             editor.getSession().setValue(xml);
         }

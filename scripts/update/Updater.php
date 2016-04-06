@@ -51,9 +51,17 @@ class Updater extends common_ext_ExtensionUpdater
             
             $currentVersion = '0.2.0';
             
-        } 
+        }
 
-        return $currentVersion;
+        $this->setVersion($currentVersion);
+        
+        if($this->isVersion('0.2.0')){
+            $config = ClientLibConfigRegistry::getRegistry()->get('taoQtiItem/controller/creator/main');
+            $config['hooks'][] = 'xmlEdit/hooks/customRpEditor/hook';
+            ClientLibConfigRegistry::getRegistry()->register('taoQtiItem/controller/creator/main', $config);
+            $this->setVersion('0.3.0');
+        }
+
     }
 
 
