@@ -21,71 +21,67 @@ define([
     'jquery',
     'xmlEdit/editor',
     'tpl!xmlEdit/hooks/customRpEditor/trigger',
-    'taoQtiItem/qtiCreator/helper/xmlRenderer'
-], function(_, $, xmlEditor, buttonTpl, xmlRenderer){
-    
+    'tpl!xmlEdit/hooks/customRpEditor/dialog',
+    'taoQtiItem/qtiCreator/helper/xmlRenderer',
+    'ui/dialog'
+], function(_, $, xmlEditor, buttonTpl, dialogTpl, xmlRenderer, dialog){
+
     'use strict';
-    
+
     var _ns = '.customRpEditor';
-    
-    function customResponseFormLoaded(config, callback) {
-        $('#item-editor-scope').on('initResponseForm'+_ns, function(){
+
+    function customResponseFormLoaded(config, callback){
+        $('#item-editor-scope').on('initResponseForm' + _ns, function(){
             var item = config.dom.getEditorScope().data('item');
             if(item.responseProcessing.processingType === 'custom'){
                 callback(item);
             }
         });
     }
-    
+
     /**
      * init the apip creator debugger hook
      * 
      */
     function init(config){
-        
+
         customResponseFormLoaded(config, function(item){
-            
+
             var $creatorScope = config.dom.getEditorScope();
-            
-            //create the editor container and add it to the dom
-            var $editor = $('<div>').appendTo($creatorScope);
-            var editor = xmlEditor.init($editor, {
-                hidden : true,
-                top : 101,
-                width : '60%',
-                height : 460,
-                zIndex : 301,
-                readonly : false
-            });
-            
+
             //add button and click events
-            var $button = $(buttonTpl());
-            
-            $creatorScope.find('#item-editor-response-property-bar').find('select[name=template]').parent('.panel').after($button);
-            
-            $button.on('click', function(){
-                if($button.hasClass('active')){
-                    $button.removeClass('active');
-                    editor.hide();
-                }else{
-                    updateValue();
-                    $button.addClass('active');
+            var $button = $(buttonTpl()).click(function(){
+
+                var xml = xmlRenderer.render(item.responseProcessing);
+                var modal = dialog({
+                    autoDestroy : true,
+                    content : dialogTpl(),
+                    renderTo : $creatorScope,
+                    width : 900
+                });
+
+                modal.on('opened.modal', function(){
+
+                    var editor = xmlEditor.init(modal.getDom().find('.custom-rp-editor'), {
+                        hidden : true,
+                        width : '100%',
+                        height : 460,
+                        zIndex : 301,
+                        readonly : false
+                    });
+                        
+                    editor.setValue(xml);
                     editor.show();
-                }
+
+                }).render();
+
             });
 
-            //define editor content update
-            var updateValue = _.throttle(function updateValue(){
-                var xml = xmlRenderer.render(item.responseProcessing);
-                editor.setValue(xml);
-            }, 600);
-
-            //init debugger content
-            _.defer(updateValue);
+            $creatorScope.find('#item-editor-response-property-bar').find('select[name=template]').parent('.panel').after($button);
         });
-        
+
     }
-    
+
     /**
      * The format required by the hook, please do not rename the returned function init.
      */

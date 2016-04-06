@@ -80,7 +80,7 @@ define([
         options = _.defaults(options || {}, _defaults);
         
         editor.$blockScrolling = Infinity;//add this fix as suggested by ace to prevent message in console
-        editor.setTheme("ace/theme/monokai");
+        editor.setTheme("ace/theme/chrome");
         editor.getSession().setMode("ace/mode/xml");
         editor.setReadOnly(options.readonly);
         editor.setShowPrintMargin(false);

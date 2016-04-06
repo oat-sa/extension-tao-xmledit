@@ -50,7 +50,7 @@ define([
             
             var $creatorScope = $('#item-editor-scope');
             //create the editor container and add it to the dom
-            var $editor = $('<div>').appendTo($creatorScope);
+            var $editor = $('<div>', {'class' : 'qti-creator-source'}).appendTo($creatorScope);
             var editor = xmlEditor.init($editor, {
                 hidden : true,
                 top : 101,
