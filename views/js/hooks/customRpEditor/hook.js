@@ -24,10 +24,11 @@ define([
     'xmlEdit/editor',
     'tpl!xmlEdit/hooks/customRpEditor/trigger',
     'tpl!xmlEdit/hooks/customRpEditor/dialog',
+    'tpl!xmlEdit/hooks/customRpEditor/notification',
     'taoQtiItem/qtiCreator/helper/xmlRenderer',
     'core/validator/Validator',
     'ui/dialog'
-], function(_, __, $, helpers, xmlEditor, buttonTpl, dialogTpl, xmlRenderer, Validator, dialog){
+], function(_, __, $, helpers, xmlEditor, buttonTpl, dialogTpl, notificationTpl, xmlRenderer, Validator, dialog){
 
     'use strict';
 
@@ -79,13 +80,16 @@ define([
 
                     $editorContainer.on('change.xml-editor', function(e, newRpXml, annotations){
 
-                        validateXml2(item,  newRpXml, annotations);
+                        validateXml2(item,  newRpXml, annotations, function(){
+                            item.responseProcessing.xml = newRpXml;
+                        });
+                        
                         return;
                         
                         //validate rp
                         validateXml(item, newRpXml, function(){
                             //valid, save to model
-                            item.responseProcessing.xml = newRpXml;
+                            
                         }, function(errors){
                             //invalid, display error
                             console.log(errors);
@@ -121,8 +125,9 @@ define([
         });
     }
 
-    function validateXml2(item, xml, annotations){
-
+    function validateXml2(item, xml, annotations, successCallback){
+        
+        var messages = [];
         var validator = new Validator([
             {
                 name : 'annotations',
@@ -131,7 +136,11 @@ define([
                     annotations : annotations
                 },
                 validate : function(value, callback){
-                    callback(!annotations || !annotations.length);
+                    var valid = (!annotations || !annotations.length);
+                    if(!valid){
+                        messages.push('The xml is not valid, please check annotations for errors.');
+                    }
+                    callback(valid);
                 }
             },
             {
@@ -142,6 +151,12 @@ define([
                 },
                 validate : function(value, callback){
                     var r = variablesExist(item, xml);
+                    var valid = !r.missing.length;
+                    if(!valid){
+                        _.each(r.missing, function(m){
+                            messages.push(__('The variable %s does not exist.', m));
+                        });
+                    }
                     callback(!r.missing.length);
                 }
             },
@@ -160,17 +175,42 @@ define([
                             xml : xml
                         }
                     }).done(function(r){
-                        callback(r.success, r.errors);
+                        var valid = r.success;
+                        if(!valid){
+                            _.each(r.missing, function(m){
+                                messages.push(__('Invalid QTI xml %s', m));
+                            });
+                        }
+                        callback(r.success);
                     });
                 }
             }
         ]);
         
-        validator.validate(xml, function(r){
-            console.log(r);
+        validator.validate(xml, function(){
+            
+            var $notificationContainer = $('.custom-rp-notification');
+            
+            //clear messages
+            $notificationContainer.empty();
+            
+            console.log(messages);
+            
+            
+            if(messages.length){
+                //show notification
+                $notificationContainer.append(notificationTpl({messages : messages}));
+                
+                //disable done
+                
+            }else if(_.isFunction(successCallback)){
+                successCallback(item, xml);
+            }
+            
         });
 
     }
+    
     function variablesExist(item, rpXml){
         var report = {
             itemVariables : [],
@@ -185,7 +225,7 @@ define([
         }));
 
 
-        $rp.find('variable').each(function(){
+        $rp.find('variable,setOutcomeValue').each(function(){
             var id = $(this).attr('identifier');
             report.rpVariables.push(id);
             if(_.indexOf(report.itemVariables, id) === -1){

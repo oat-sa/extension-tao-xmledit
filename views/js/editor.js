@@ -84,7 +84,7 @@ define([
         editor.getSession().setMode("ace/mode/xml");
         editor.setReadOnly(options.readonly);
         editor.setShowPrintMargin(false);
-        editor.on('input', _.throttle(function(){
+        editor.on('input', _.debounce(function(){
             var annotations = editor.getSession().getAnnotations();
             $container.trigger('change'+_ns, [getValue(), annotations]);
         }, 600));
