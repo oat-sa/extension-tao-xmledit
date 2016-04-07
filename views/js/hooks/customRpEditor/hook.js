@@ -13,7 +13,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * Copyright (c) 2015 (original work) Open Assessment Technologies SA ;
+ * Copyright (c) 2016 (original work) Open Assessment Technologies SA ;
  *
  */
 define([
@@ -26,14 +26,19 @@ define([
     'tpl!xmlEdit/hooks/customRpEditor/dialog',
     'tpl!xmlEdit/hooks/customRpEditor/notification',
     'taoQtiItem/qtiCreator/helper/xmlRenderer',
-    'core/validator/Validator',
-    'ui/dialog'
-], function(_, __, $, helpers, xmlEditor, buttonTpl, dialogTpl, notificationTpl, xmlRenderer, Validator, dialog){
+    'core/validator/Validator'
+], function(_, __, $, helpers, xmlEditor, buttonTpl, dialogTpl, notificationTpl, xmlRenderer, Validator){
 
     'use strict';
 
     var _ns = '.customRpEditor';
-
+    
+    /**
+     * Bind callback to the right event listener
+     * 
+     * @param {Object} config
+     * @param {Function} callback
+     */
     function customResponseFormLoaded(config, callback){
         $('#item-editor-scope').on('initResponseForm' + _ns, function(){
             var item = config.dom.getEditorScope().data('item');
@@ -45,7 +50,6 @@ define([
 
     /**
      * init the apip creator debugger hook
-     * 
      */
     function init(config){
 
@@ -57,16 +61,16 @@ define([
             var $button = $(buttonTpl()).click(function(){
 
                 var rpXml = xmlRenderer.render(item.responseProcessing);
-                var modal = dialog({
-                    autoDestroy : true,
-                    content : dialogTpl(),
-                    renderTo : $creatorScope,
-                    width : 900
-                });
-
-                modal.on('opened.modal', function(){
-
-                    var $editorContainer = modal.getDom().find('.custom-rp-editor');
+                var $modal = $(dialogTpl());
+                $creatorScope.append($modal);
+                
+                //when we are sure that media is loaded:
+                $modal.on('opened.modal', function(){
+                    
+                    var newRpXml;
+                    var $notificationContainer = $modal.find('.custom-rp-notification');
+                    var $editorContainer = $modal.find('.custom-rp-editor');
+                    var $ok = $modal.find('button.done');
                     var editor = xmlEditor.init($editorContainer, {
                         hidden : true,
                         width : '100%',
@@ -74,58 +78,66 @@ define([
                         zIndex : 301,
                         readonly : false
                     });
-
+                    
                     editor.setValue(rpXml);
                     editor.show();
-
-                    $editorContainer.on('change.xml-editor', function(e, newRpXml, annotations){
-
-                        validateXml2(item,  newRpXml, annotations, function(){
-                            item.responseProcessing.xml = newRpXml;
-                        });
+                    
+                    $editorContainer.on('change.xml-editor', function(e, editedRpXml, annotations){
                         
-                        return;
-                        
-                        //validate rp
-                        validateXml(item, newRpXml, function(){
-                            //valid, save to model
+                        validateRpXml(item,  editedRpXml, annotations, function(){
                             
-                        }, function(errors){
-                            //invalid, display error
-                            console.log(errors);
+                            //clear messages
+                            $notificationContainer.empty();
+                            
+                            //save current xml to memory
+                            newRpXml = editedRpXml;
+                            
+                            //enable done
+                            $ok.removeClass('disabled');
+                            
+                        }, function(messages){
+                            
+                            //clear messages
+                            $notificationContainer.empty();
+                            
+                            //show notification
+                            $notificationContainer.append(notificationTpl({messages : messages}));
+                            
+                            //disable done
+                            $ok.addClass('disabled');
                         });
-
                     });
-                }).render();
+                    
+                    $ok.on('click', function(){
+                        if(!$ok.hasClass('disabled')){
+                            //save value
+                            item.responseProcessing.xml = newRpXml;
+                            //close modal
+                            $modal.modal('destroy');
+                        }
+                    });
+                    
+                }).modal({
+                    startClosed : false,
+                    width : 900
+                });
 
             });
 
             $creatorScope.find('#item-editor-response-property-bar').find('select[name=template]').parent('.panel').after($button);
         });
-
     }
-
-    function validateXml(item, xml, successCb, failureCb){
-
-        variablesExist(item, xml);
-
-        $.ajax({
-            url : helpers._url('validate', 'CustomRpEditor', 'xmlEdit'),
-            dataType : 'json',
-            type : 'GET',
-            data : {
-                xml : xml
-            }
-        }).done(function(r){
-            if(r.success){
-                successCb(xml);
-            }else{
-                failureCb(xml, r.errors);
-            }
-        });
-    }
-
-    function validateXml2(item, xml, annotations, successCallback){
+    
+    /**
+     * Validate the rp xml against qti item model
+     * 
+     * @param {Object} item
+     * @param {String} xml
+     * @param {Array} annotations
+     * @param {Function} successCallback
+     * @param {Function} failureCallback
+     */
+    function validateRpXml(item, xml, annotations, successCallback, failureCallback){
         
         var messages = [];
         var validator = new Validator([
@@ -187,29 +199,21 @@ define([
         ]);
         
         validator.validate(xml, function(){
-            
-            var $notificationContainer = $('.custom-rp-notification');
-            
-            //clear messages
-            $notificationContainer.empty();
-            
-            console.log(messages);
-            
-            
             if(messages.length){
-                //show notification
-                $notificationContainer.append(notificationTpl({messages : messages}));
-                
-                //disable done
-                
-            }else if(_.isFunction(successCallback)){
-                successCallback(item, xml);
+                failureCallback(messages);
+            }else{
+                successCallback();
             }
-            
         });
-
     }
     
+    /**
+     * Check if the variables used in the response processing xml exist in the item
+     * 
+     * @param {Object} item
+     * @param {String} rpXml
+     * @returns {Object} the report object
+     */
     function variablesExist(item, rpXml){
         var report = {
             itemVariables : [],
@@ -234,7 +238,7 @@ define([
 
         return report;
     }
-
+    
     /**
      * The format required by the hook, please do not rename the returned function init.
      */
