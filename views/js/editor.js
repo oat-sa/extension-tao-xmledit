@@ -35,7 +35,8 @@ define([
         left : 0,
         width : '800px',
         height : '500px',
-        zIndex : 1
+        zIndex : 1,
+        minifyOutput : false
     };
 
     /**
@@ -119,7 +120,11 @@ define([
          * @returns {string}
          */
         function getValue(){
-            return compressXml(editor.getValue());
+            var value = editor.getValue();
+            if(options.minifyOutput){
+                return compressXml(value);
+            }
+            return value;
         }
         
         /**

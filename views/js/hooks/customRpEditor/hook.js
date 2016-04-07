@@ -169,16 +169,15 @@ define([
                 validate : function(value, callback){
                     $.ajax({
                         url : helpers._url('validate', 'CustomRpEditor', 'xmlEdit'),
+                        type : 'POST',
+                        contentType : 'text/xml',
                         dataType : 'json',
-                        type : 'GET',
-                        data : {
-                            xml : xml
-                        }
+                        data : xml
                     }).done(function(r){
                         var valid = r.success;
                         if(!valid){
-                            _.each(r.missing, function(m){
-                                messages.push(__('Invalid QTI xml %s', m));
+                            _.each(r.errors, function(err){
+                                messages.push(__('Invalid QTI xml %s', err.message || err));
                             });
                         }
                         callback(r.success);
