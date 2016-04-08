@@ -1,2 +1,2 @@
 # extension-tao-xmledit
-XML IDE
+Offer advanced xml editing features
