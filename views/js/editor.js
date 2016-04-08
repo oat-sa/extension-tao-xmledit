@@ -35,7 +35,8 @@ define([
         left : 0,
         width : '800px',
         height : '500px',
-        zIndex : 1
+        zIndex : 1,
+        minifyOutput : false
     };
 
     /**
@@ -80,12 +81,13 @@ define([
         options = _.defaults(options || {}, _defaults);
         
         editor.$blockScrolling = Infinity;//add this fix as suggested by ace to prevent message in console
-        editor.setTheme("ace/theme/monokai");
+        editor.setTheme("ace/theme/chrome");
         editor.getSession().setMode("ace/mode/xml");
         editor.setReadOnly(options.readonly);
         editor.setShowPrintMargin(false);
-        editor.on('input', _.throttle(function(){
-            $container.trigger('change'+_ns, [getValue()]);
+        editor.on('input', _.debounce(function(){
+            var annotations = editor.getSession().getAnnotations();
+            $container.trigger('change'+_ns, [getValue(), annotations]);
         }, 600));
 
         //set editor style options
@@ -118,7 +120,11 @@ define([
          * @returns {string}
          */
         function getValue(){
-            return compressXml(editor.getValue());
+            var value = editor.getValue();
+            if(options.minifyOutput){
+                return compressXml(value);
+            }
+            return value;
         }
         
         /**

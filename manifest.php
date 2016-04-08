@@ -23,11 +23,10 @@ return array(
 	'label' => 'xmlEdit',
 	'description' => 'xml editing and debugging tools',
     'license' => 'GPL-2.0',
-    'version' => '0.2.0',
+    'version' => '1.0.0',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'tao' => '>=2.12.0',
-        'taoQtiItem' => '>=2.11.0',
     ),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#xmlEditManager',
     'acl' => array(
@@ -35,9 +34,7 @@ return array(
     ),
     'install' => array(
         'php' => array(
-			dirname(__FILE__).'/scripts/install/setAceAlias.php',
-			dirname(__FILE__).'/scripts/install/addQtiDebuggerHook.php',
-			dirname(__FILE__).'/scripts/install/addApipDebuggerHook.php',
+			dirname(__FILE__).'/scripts/install/setAceAlias.php'
 		)
     ),
     'uninstall' => array(

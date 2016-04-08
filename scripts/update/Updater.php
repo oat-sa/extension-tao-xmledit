@@ -51,9 +51,10 @@ class Updater extends common_ext_ExtensionUpdater
             
             $currentVersion = '0.2.0';
             
-        } 
+        }
 
-        return $currentVersion;
+        $this->setVersion($currentVersion);
+        $this->skip('0.2.0', '1.0.0');
     }
 
 
