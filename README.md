@@ -1,2 +1,2 @@
 # extension-tao-xmledit
-Offer advanced qti authoring features 
+Offer advanced xml editing features

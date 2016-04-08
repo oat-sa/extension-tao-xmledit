@@ -14,25 +14,3 @@
         }
     }
 }
-
-.custom-rp-editor-container{
-    h2 {
-        margin-top:0;
-    }
-    .tao-xml-editor.custom-rp-editor{
-        border : 1px solid $uiGeneralContentBorder;
-        margin-bottom : 20px
-    }
-    .feedback-warning{
-        h3 {
-            margin-top:0;
-        }
-        ul {
-            padding:0;
-        }
-    }
-}
-
-.tao-xml-editor.qti-creator-source{
-    position: absolute;
-}

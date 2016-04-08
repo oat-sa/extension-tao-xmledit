@@ -23,7 +23,7 @@ return array(
 	'label' => 'xmlEdit',
 	'description' => 'xml editing and debugging tools',
     'license' => 'GPL-2.0',
-    'version' => '0.3.0',
+    'version' => '1.0.0',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'tao' => '>=2.12.0',
@@ -35,10 +35,7 @@ return array(
     ),
     'install' => array(
         'php' => array(
-			dirname(__FILE__).'/scripts/install/setAceAlias.php',
-			dirname(__FILE__).'/scripts/install/addQtiDebuggerHook.php',
-			dirname(__FILE__).'/scripts/install/addApipDebuggerHook.php',
-			dirname(__FILE__).'/scripts/install/addCustomRpEditorHook.php'
+			dirname(__FILE__).'/scripts/install/setAceAlias.php'
 		)
     ),
     'uninstall' => array(
