@@ -25,17 +25,12 @@ define([
 ], function(_, $, vkBeautify){
 
     'use strict';
-    
+
     var _ns = '.xml-editor';
-    
+
     var _defaults = {
         readonly : false,
         hidden :false,
-        top : 0,
-        left : 0,
-        width : '800px',
-        height : '500px',
-        zIndex : 1,
         minifyOutput : false
     };
 
@@ -48,7 +43,7 @@ define([
     function formatXml(xml){
         return vkBeautify.xml(xml, '\t');
     }
-    
+
     /**
      * Compress the xml string into a single line
      * @private
@@ -56,11 +51,11 @@ define([
      * @returns {string}
      */
     function compressXml(xml){
-        return xml.replace(/[ \r\n\t]{1,}xmlns/g, ' xmlns').replace(/>\s{0,}</g,"><"); 
+        return xml.replace(/[ \r\n\t]{1,}xmlns/g, ' xmlns').replace(/>\s{0,}</g,"><");
     }
     /**
      * Init the previewer on a container and returns an api to control it
-     * 
+     *
      * @param {jQuery} $container
      * @param {object} options
      * @param {boolean} [options.readonly] - not editable
@@ -79,7 +74,7 @@ define([
         var editor = ace.edit($editor[0]);
 
         options = _.defaults(options || {}, _defaults);
-        
+
         editor.$blockScrolling = Infinity;//add this fix as suggested by ace to prevent message in console
         editor.setTheme("ace/theme/chrome");
         editor.getSession().setMode("ace/mode/xml");
@@ -100,11 +95,11 @@ define([
                 height : options.height,
                 zIndex : options.zIndex
             });
-        
+
         if(options.hidden){
             $container.hide();
         }
-        
+
         /**
          * Set the editor content
          * @param {string} xml
@@ -113,10 +108,10 @@ define([
             xml = formatXml(xml);
             editor.getSession().setValue(xml);
         }
-        
+
         /**
          * Get the editor content
-         *  
+         *
          * @returns {string}
          */
         function getValue(){
@@ -126,12 +121,12 @@ define([
             }
             return value;
         }
-        
+
         /**
          * Destroy the editor
          */
         function destroy(){
-            
+
             editor.destroy();
             $container
                 .off(_ns)
@@ -139,7 +134,7 @@ define([
                 .removeAttr('style')
                 .children('.tao-ace-editor').remove();
         }
-        
+
         return {
             setValue : setValue,
             getValue : getValue,
