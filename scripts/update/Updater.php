@@ -23,14 +23,14 @@ use oat\tao\model\ClientLibRegistry;
 use oat\tao\model\ClientLibConfigRegistry;
 
 /**
- * 
+ *
  * @author Sam <sam@taotesting.com>
  */
 class Updater extends common_ext_ExtensionUpdater
 {
 
     /**
-     * 
+     *
      * @param string $initialVersion
      * @return string $versionUpdatedTo
      */
@@ -38,24 +38,23 @@ class Updater extends common_ext_ExtensionUpdater
     {
 
         $currentVersion = $initialVersion;
-        
-        if ($currentVersion === '0.1') {
 
+        if ($currentVersion === '0.1') {
             ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.2.0/');
-            ClientLibConfigRegistry::getRegistry()->register('taoQtiItem/controller/apip-creator/main', array('hooks' => array(
-                'xmlEdit/hooks/apipCreatorDebugger/hook'
-            )));
-            ClientLibConfigRegistry::getRegistry()->register('taoQtiItem/controller/creator/main', array('hooks' => array(
-                'xmlEdit/hooks/qtiCreatorDebugger/hook'
-            )));
-            
+            ClientLibConfigRegistry::getRegistry()->register(
+                'taoQtiItem/controller/apip-creator/main',
+                array('hooks' => array('xmlEdit/hooks/apipCreatorDebugger/hook'))
+            );
+            ClientLibConfigRegistry::getRegistry()->register(
+                'taoQtiItem/controller/creator/main',
+                array('hooks' => array('xmlEdit/hooks/qtiCreatorDebugger/hook'))
+            );
+
             $currentVersion = '0.2.0';
-            
         }
 
         $this->setVersion($currentVersion);
-        $this->skip('0.2.0', '2.0.0');
+
+        $this->skip('0.2.0', '2.0.1');
     }
-
-
 }
