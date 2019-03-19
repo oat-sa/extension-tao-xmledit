@@ -30,14 +30,6 @@ namespace oat\xmlEdit\controller;
  *
  */
 class XmlEdit extends \tao_actions_CommonModule {
-
-    /**
-     * initialize the services
-     */
-    public function __construct(){
-        parent::__construct();
-    }
-
     /**
      * A possible entry point to tao
      */
