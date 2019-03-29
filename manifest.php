@@ -23,10 +23,10 @@ return array(
 	'label' => 'xmlEdit',
 	'description' => 'xml editing and debugging tools',
     'license' => 'GPL-2.0',
-    'version' => '3.0.1',
+    'version' => '3.1.0',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
-        'tao' => '>=21.0.0',
+        'tao' => '>=30.0.0',
     ),
 	'managementRole' => 'http://www.tao.lu/Ontologies/generis.rdf#xmlEditManager',
     'acl' => array(
