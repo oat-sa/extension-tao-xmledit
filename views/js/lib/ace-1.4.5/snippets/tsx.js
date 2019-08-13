@@ -1,4 +1,10 @@
-ace.define("ace/snippets/tsx",["require","exports","module"],function(e,t,n){"use strict";t.snippetText=undefined,t.scope="tsx"});                (function() {
+ace.define("ace/snippets/tsx",["require","exports","module"], function(require, exports, module) {
+"use strict";
+
+exports.snippetText =undefined;
+exports.scope = "tsx";
+
+});                (function() {
                     ace.require(["ace/snippets/tsx"], function(m) {
                         if (typeof module == "object" && typeof exports == "object" && module) {
                             module.exports = m;
