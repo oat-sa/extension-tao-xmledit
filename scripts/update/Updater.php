@@ -56,5 +56,11 @@ class Updater extends common_ext_ExtensionUpdater
         $this->setVersion($currentVersion);
 
         $this->skip('0.2.0', '3.1.0');
+
+        if ($this->isVersion('3.1.0')) {
+            ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.4.5/');
+
+            $this->setVersion('3.2.0');
+        }
     }
 }
