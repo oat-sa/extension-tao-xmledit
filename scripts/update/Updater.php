@@ -59,14 +59,6 @@ class Updater extends common_ext_ExtensionUpdater
 
         if ($this->isVersion('3.1.0')) {
             ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.4.5/');
-            ClientLibConfigRegistry::getRegistry()->register(
-                'taoQtiItem/controller/apip-creator/main',
-                array('hooks' => array('xmlEdit/hooks/apipCreatorDebugger/hook'))
-            );
-            ClientLibConfigRegistry::getRegistry()->register(
-                'taoQtiItem/controller/creator/main',
-                array('hooks' => array('xmlEdit/hooks/qtiCreatorDebugger/hook'))
-            );
 
             $this->setVersion('3.2.0');
         }
