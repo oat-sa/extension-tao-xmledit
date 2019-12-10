@@ -34,7 +34,7 @@ return array(
     ),
     'install' => array(
         'php' => array(
-			dirname(__FILE__).'/scripts/install/setAceAlias.php'
+            \oat\xmlEdit\scripts\install\RegisterAceAlias::class
 		)
     ),
     'uninstall' => array(

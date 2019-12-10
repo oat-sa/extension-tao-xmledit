@@ -14,8 +14,22 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  *
- * Copyright (c) 2015 (original work) Open Assessment Technologies SA ;
+ * Copyright (c) 2015-2019 (original work) Open Assessment Technologies SA ;
  *
  */
+namespace oat\xmlEdit\scripts\install;
+
+use common_report_Report as Report;
+use oat\oatbox\extension\InstallAction;
 use oat\tao\model\ClientLibRegistry;
-ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.2.0/');
+
+class RegisterAceAlias extends InstallAction
+{
+    public function __invoke($params)
+    {
+        ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.4.5/');
+
+        // report the result
+        return new Report(Report::TYPE_SUCCESS, 'Ace library registered!');
+    }
+}
