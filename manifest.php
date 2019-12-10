@@ -23,7 +23,7 @@ return array(
 	'label' => 'xmlEdit',
 	'description' => 'xml editing and debugging tools',
     'license' => 'GPL-2.0',
-    'version' => '3.2.0',
+    'version' => '3.2.1',
 	'author' => 'Open Assessment Technologies SA',
 	'requires' => array(
         'tao' => '>=30.0.0',
@@ -34,7 +34,7 @@ return array(
     ),
     'install' => array(
         'php' => array(
-			dirname(__FILE__).'/scripts/install/setAceAlias.php'
+            \oat\xmlEdit\scripts\install\RegisterAceAlias::class
 		)
     ),
     'uninstall' => array(
