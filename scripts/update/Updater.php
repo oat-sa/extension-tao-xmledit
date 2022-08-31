@@ -41,7 +41,7 @@ class Updater extends common_ext_ExtensionUpdater
         $currentVersion = $initialVersion;
 
         if ($currentVersion === '0.1') {
-            ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.2.0/');
+            ClientLibRegistry::getRegistry()->register('ace', ROOT_URL . 'xmlEdit/views/js/lib/ace-1.2.0');
             ClientLibConfigRegistry::getRegistry()->register(
                 'taoQtiItem/controller/apip-creator/main',
                 array('hooks' => array('xmlEdit/hooks/apipCreatorDebugger/hook'))
@@ -59,11 +59,11 @@ class Updater extends common_ext_ExtensionUpdater
         $this->skip('0.2.0', '3.1.0');
 
         if ($this->isBetween('3.1.0', '3.2.0')) {
-            ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.4.5/');
+            ClientLibRegistry::getRegistry()->register('ace', ROOT_URL . 'xmlEdit/views/js/lib/ace-1.4.5');
 
             $this->setVersion('3.2.1');
         }
-        
+
         //Updater files are deprecated. Please use migrations.
         //See: https://github.com/oat-sa/generis/wiki/Tao-Update-Process
 

@@ -27,7 +27,7 @@ class RegisterAceAlias extends InstallAction
 {
     public function __invoke($params)
     {
-        ClientLibRegistry::getRegistry()->register('ace', ROOT_URL.'xmlEdit/views/js/lib/ace-1.4.5/');
+        ClientLibRegistry::getRegistry()->register('ace', ROOT_URL . 'xmlEdit/views/js/lib/ace-1.4.5');
 
         // report the result
         return new Report(Report::TYPE_SUCCESS, 'Ace library registered!');
