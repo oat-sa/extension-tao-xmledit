@@ -1,14 +1,1 @@
-{
-	"version": 3,
-	"file": "editor.css",
-	"sources": [
-		"../scss/editor.scss",
-		"../../../tao/views/node_modules/@oat-sa/tao-core-ui/scss/inc/_bootstrap.scss",
-		"../../../tao/views/node_modules/@oat-sa/tao-core-ui/scss/inc/_variables.scss",
-		"../../../tao/views/node_modules/@oat-sa/tao-core-ui/scss/inc/_functions.scss",
-		"../../../tao/views/node_modules/@oat-sa/tao-core-ui/scss/inc/_colors.scss",
-		"../../../tao/views/scss/inc/fonts/_tao-icon-vars.scss"
-	],
-	"names": [],
-	"mappings": "AAGA,AAAA,eAAe,AAAC,CACZ,QAAQ,CAAE,QAAQ,CAWrB,AAZD,AAEI,eAFW,CAEX,WAAW,AAAA,eAAe,AAAC,CACvB,QAAQ,CAAE,QAAQ,CAClB,GAAG,CAAE,CAAC,CACN,KAAK,CAAE,CAAC,CACR,MAAM,CAAE,CAAC,CACT,IAAI,CAAE,CAAC,CAIV,AAXL,AAQQ,eARO,CAEX,WAAW,AAAA,eAAe,CAMtB,UAAU,CAAC,GAAG,AAAA,CACV,WAAW,CAAC,GAAG,CAClB"
-}
+{"version":3,"sourceRoot":"","sources":["../scss/editor.scss"],"names":[],"mappings":"AAGA,gBACI,kBACA,2CACI,kBACA,MACA,QACA,SACA,OACA,0DACI","file":"editor.css"}
