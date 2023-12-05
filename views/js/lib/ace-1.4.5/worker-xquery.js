@@ -53351,7 +53351,7 @@ exports.XQLint = function (source, opts) {
     return htmlUnescapes[chr];
   }
   function runInContext(context) {
-    context = context ? _.defaults(root.Object(), context, _.pick(root, contextProps)) : root;
+    context = context ? _.defaults(root.Object(), context, _.pickBy(root, contextProps)) : root;
     var Array = context.Array,
         Date = context.Date,
         Error = context.Error,
